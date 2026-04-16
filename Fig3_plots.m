@@ -9,7 +9,16 @@ addpath('variables')
 set_plot_defaults_constant_font(16);
 
 load("CapacityPartial.mat")
-load("variables/LogData_selected.mat")   % loads LogData and Log_v
+
+% Recombine
+LogData = struct([]);
+Log_v   = [];
+for k = 1:20
+    fname = sprintf('variables/LogData_selected_%02d.mat', k);
+    tmp   = load(fname);  % loads LogData_part, Log_v_part
+    LogData = [LogData, tmp.LogData_part];
+    Log_v   = [Log_v,   tmp.Log_v_part];
+end
 
 %% Some settings
 plot_single_cell = 1;
